@@ -1,101 +1,134 @@
 import { FlipWords } from "./FlipWords";
-import { motion } from "motion/react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import Buttons from "./Buttons";
 
 const HeroText = () => {
+  const { scrollYProgress } = useScroll();
+  
+  // Horizontal parallax effect: Move content horizontally off the screen as user scrolls
+  const moveX = useTransform(scrollYProgress, [0, 1], ["0%", "-400%"]);
+
   const words = ["Secure", "Modern", "Scalable"];
   const variants = {
-    hidden: { opacity: 0, x: -50 },
-    visible: { opacity: 1, x: 0 },
+    hidden: { opacity: 0, y: 30 },
+    visible: { opacity: 1, y: 0 },
   };
+
   return (
-    <div className="z-10 mt-20 text-center md:mt-40 md:text-left rounded-3xl bg-clip-text">
+    <motion.div
+      className="relative z-10 mt-20 md:mt-40  text-center md:text-left"
+      style={{ x: moveX }}  // Apply horizontal movement here
+    >
       {/* Desktop View */}
-      <div className="flex-col hidden md:flex c-space">
-        <motion.h1
-          className="text-4xl font-medium"
+      <div className="hidden md:flex flex-col gap-4">
+        <motion.h1 
+          className="text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-white via-blue-400 to-cyan-300"
           variants={variants}
           initial="hidden"
           animate="visible"
-          transition={{ delay: 1 }}
+          transition={{ delay: 0.5 }}
         >
-          Hi I'm Ali
+         
         </motion.h1>
-        <div className="flex flex-col items-start">
-          <motion.p
-            className="text-5xl font-medium text-neutral-300"
-            variants={variants}
-            initial="hidden"
-            animate="visible"
-            transition={{ delay: 1.2 }}
-          >
-            A Developer <br /> Dedicated to Crafting
-          </motion.p>
-          <motion.div
-            variants={variants}
-            initial="hidden"
-            animate="visible"
-            transition={{ delay: 1.5 }}
-          >
-            <FlipWords
-              words={words}
-              className="font-black text-white text-8xl"
-            />
-          </motion.div>
-          <motion.p
-            className="text-4xl font-medium text-neutral-300"
-            variants={variants}
-            initial="hidden"
-            animate="visible"
-            transition={{ delay: 1.8 }}
-          >
-            Web Solutions
-          </motion.p>
-        </div>
-      </div>
-      {/* Mobile View */}
-      <div className="flex- flex-col space-y-6 md:hidden">
+
         <motion.p
-          className="text-4xl font-medium"
+          className="text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-white via-blue-400 to-cyan-300"
           variants={variants}
           initial="hidden"
           animate="visible"
-          transition={{ delay: 1 }}
+          transition={{ delay: 0.8 }}
         >
-          Hi,I'm Ali
+          We craft
         </motion.p>
-        <div>
-          <motion.p
-            className="text-5xl font-black text-neutral-300"
-            variants={variants}
-            initial="hidden"
-            animate="visible"
-            transition={{ delay: 1.2 }}
-          >
-            Building
-          </motion.p>
-          <motion.div
-            variants={variants}
-            initial="hidden"
-            animate="visible"
-            transition={{ delay: 1.5 }}
-          >
-            <FlipWords
-              words={words}
-              className="font-bold text-white text-7xl"
-            />
-          </motion.div>
-          <motion.p
-            className="text-4xl font-black text-neutral300"
-            variants={variants}
-            initial="hidden"
-            animate="visible"
-            transition={{ delay: 1.8 }}
-          >
-            Web Applications
-          </motion.p>
-        </div>
+
+        <motion.div
+          variants={variants}
+          initial="hidden"
+          animate="visible"
+          transition={{ delay: 1.2 }}
+        >
+          <FlipWords
+            words={words}
+            className="text-7xl font-extrabold text-transparant"
+          />
+        </motion.div>
+
+        <motion.p
+          className="text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-white via-blue-400 to-cyan-300"
+          variants={variants}
+          initial="hidden"
+          animate="visible"
+          transition={{ delay: 1.6 }}
+        >
+          Web Solutions that deliver.
+        </motion.p>
+
+        <motion.div
+          className="mt-6"
+          variants={variants}
+          initial="hidden"
+          animate="visible"
+          transition={{ delay: 2 }}
+        >
+          <Buttons />
+        </motion.div>
       </div>
-    </div>
+
+      {/* Mobile View */}
+      <div className="flex flex-col gap-6 md:hidden">
+        <motion.h1
+          className="text-4xl font-bold tracking-tight text-white"
+          variants={variants}
+          initial="hidden"
+          animate="visible"
+          transition={{ delay: 0.5 }}
+        >
+        
+        </motion.h1>
+
+        <motion.p
+          className="text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-white via-blue-400 to-cyan-300"
+          variants={variants}
+          initial="hidden"
+          animate="visible"
+          transition={{ delay: 0.8 }}
+        >
+          We craft
+        </motion.p>
+
+        <motion.div
+          variants={variants}
+          initial="hidden"
+          animate="visible"
+          transition={{ delay: 1.2 }}
+        >
+          <FlipWords
+            words={words}
+            className="text-6xl font-black text-white drop-shadow-[0_2px_8px_rgba(255,255,255,0.1)]"
+          />
+        </motion.div>
+
+        <motion.p
+        className="text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-white via-blue-400 to-cyan-300"
+          variants={variants}
+          initial="hidden"
+          animate="visible"
+          transition={{ delay: 1.6 }}
+        >
+          Web Solutions that deliver.
+        </motion.p>
+
+        <motion.div
+          className="mt-4"
+          variants={variants}
+          initial="hidden"
+          animate="visible"
+          transition={{ delay: 2 }}
+        >
+          <Buttons />
+        </motion.div>
+      </div>
+    </motion.div>
   );
 };
 

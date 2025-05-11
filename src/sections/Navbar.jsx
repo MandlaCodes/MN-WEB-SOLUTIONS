@@ -1,72 +1,72 @@
 import { useState } from "react";
-import { motion } from "motion/react";
-function Navigation() {
-  return (
-    <ul className="nav-ul">
-      <li className="nav-li">
-        <a className="nav-link" href="#home">
-          Home
-        </a>
-      </li>
-      <li className="nav-li">
-        <a className="nav-link" href="#about">
-          About
-        </a>
-      </li>
-      <li className="nav-li">
-        <a className="nav-link" href="#work">
-          Work
-        </a>
-      </li>
-      <li className="nav-li">
-        <a className="nav-link" href="#contact">
-          Contact
-        </a>
-      </li>
-    </ul>
-  );
-}
+
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+
   return (
-    <div className="fixed inset-x-0 z-20 w-full backdrop-blur-lg bg-primary/40">
-      <div className="mx-auto c-space max-w-7xl">
-        <div className="flex items-center justify-between py-2 sm:py-0">
-          <a
-            href="/"
-            className="text-xl font-bold transition-colors text-neutral-400 hover:text-white"
-          >
-            Ali
-          </a>
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="flex cursor-pointer text-neutral-400 hover:text-white focus:outline-none sm:hidden"
-          >
-            <img
-              src={isOpen ? "assets/close.svg" : "assets/menu.svg"}
-              className="w-6 h-6"
-              alt="toggle"
-            />
-          </button>
-          <nav className="hidden sm:flex">
-            <Navigation />
-          </nav>
-        </div>
-      </div>
-      {isOpen && (
-        <motion.div
-          className="block overflow-hidden text-center sm:hidden"
-          initial={{ opacity: 0, x: -10 }}
-          animate={{ opacity: 1, x: 0 }}
-          style={{ maxHeight: "100vh" }}
-          transition={{ duration: 1 }}
+    <header className="fixed top-0 left-0 w-full z-50 bg-black/40 backdrop-blur-lg border-b border-white/10 shadow-md overflow-x-hidden">
+      <div className="max-w-7xl mx-auto flex items-center justify-between px-4 sm:px-6 py-3 overflow-x-hidden ">
+        {/* Logo */}
+        <a href="/" className="flex items-center shrink-0">
+          <img
+            src="/assets/Futuristic MN Web Solutions Logo.png"
+            alt="MN Web Solutions"
+            className="h-14 w-14 rounded-full border-2 border-white object-cover"
+          />
+          <span className="ml-3 text-white font-semibold text-xl hidden sm:inline">
+            MN Web Solutions
+          </span>
+        </a>
+
+        {/* Desktop Navigation */}
+        <nav className="hidden md:flex space-x-10 text-white text-lg font-medium">
+          <a href="#services" className="hover:text-cyan-400 transition-all duration-200">Services</a>
+          <a href="#portfolio" className="hover:text-cyan-400 transition-all duration-200">Portfolio</a>
+          <a href="#about" className="hover:text-cyan-400 transition-all duration-200">About</a>
+          <a href="#contact" className="hover:text-cyan-400 transition-all duration-200">Contact</a>
+        </nav>
+
+        {/* Mobile Menu Button */}
+        <button
+          className="md:hidden text-white ml-4 z-50"
+          onClick={() => setIsOpen(!isOpen)}
         >
-          <nav className="pb-5">
-            <Navigation />
-          </nav>
-        </motion.div>
+          <svg
+            className="w-7 h-7"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            {isOpen ? (
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M6 18L18 6M6 6l12 12"
+              />
+            ) : (
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M4 6h16M4 12h16M4 18h16"
+              />
+            )}
+          </svg>
+        </button>
+      </div>
+
+      {/* Mobile Nav Links */}
+      {isOpen && (
+        <div className="md:hidden bg-black/90 px-6 py-4 text-white space-y-4 text-base font-medium">
+          <a href="#services" className="block hover:text-cyan-400">Services</a>
+          <a href="#portfolio" className="block hover:text-cyan-400">Portfolio</a>
+          <a href="#about" className="block hover:text-cyan-400">About</a>
+          <a href="#contact" className="block hover:text-cyan-400">Contact</a>
+        </div>
       )}
-    </div>
+    </header>
   );
 };
 
